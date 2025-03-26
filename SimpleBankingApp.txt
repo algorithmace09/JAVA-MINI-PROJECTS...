@@ -1,0 +1,76 @@
+File name: SimpleBankingApp.java
+
+package fuction;
+
+import java.util.HashMap;
+import java.util.Map;
+
+// BankAccount class to handle account-related operations
+class BankAccount {
+    private String accountHolder;
+    private double balance;
+
+    public BankAccount(String accountHolder, double initialDeposit) {
+        this.accountHolder = accountHolder;
+        this.balance = initialDeposit;
+    }
+
+    public String getAccountHolder() {
+        return accountHolder;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposited: $" + amount);
+        } else {
+            System.out.println("Invalid deposit amount.");
+        }
+    }
+
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawn: $" + amount);
+        } else {
+            System.out.println("Invalid withdrawal amount or insufficient balance.");
+        }
+    }
+
+    public void displayAccountDetails() {
+        System.out.println("Account Holder: " + accountHolder);
+        System.out.println("Balance: $" + balance);
+    }
+}
+
+// Bank class to manage accounts
+class Bank {
+    private Map<String, BankAccount> accounts;
+
+    public Bank() {
+        accounts = new HashMap<>();
+    }
+
+    public void createAccount(String accountHolder, double initialDeposit) {
+        if (accounts.containsKey(accountHolder)) {
+            System.out.println("Account already exists for " + accountHolder);
+        } else {
+            BankAccount newAccount = new BankAccount(accountHolder, initialDeposit);
+            accounts.put(accountHolder, newAccount);
+            System.out.println("Account created successfully for " + accountHolder);
+        }
+    }
+
+    public BankAccount getAccount(String accountHolder) {
+        return accounts.get(accountHolder);
+    }
+
+    public boolean accountExists(String accountHolder) {
+        return accounts.containsKey(accountHolder);
+    }
+}
+
